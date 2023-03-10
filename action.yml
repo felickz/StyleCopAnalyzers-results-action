@@ -1,5 +1,5 @@
-name: 'SecurityCodeScan'
-description: 'Security Code Scan action to upload code scanning results'
+name: 'StyleCop.Analyzers'
+description: 'StyleCop.Analyzers action to upload code scanning results'
 branding:
   icon: 'check-circle'
   color: 'purple'
@@ -25,12 +25,12 @@ runs:
           var sarif = JSON.parse(fs.readFileSync(args[0], "utf8"));
 
           for (run of sarif.runs) {
-            run.tool.driver.name = "SecurityCodeScan";
-            run.tool.driver.fullName  = "Vulnerability Patterns Detector for C# and VB.NET";
-            run.tool.driver.informationUri  = "https://security-code-scan.github.io";
+            run.tool.driver.name = "StyleCop.Analyzers";
+            run.tool.driver.fullName  = "StyleCop Analyzers for the .NET Compiler Platform";
+            run.tool.driver.informationUri  = "https://github.com/DotNetAnalyzers/StyleCopAnalyzers";
 
-            run.results = run.results.filter((e => e.ruleId.startsWith("SCS")));
-            run.tool.driver.rules = run.tool.driver.rules.filter((e => e.id.startsWith("SCS")));
+            run.results = run.results.filter((e => e.ruleId.startsWith("SA")));
+            run.tool.driver.rules = run.tool.driver.rules.filter((e => e.id.startsWith("SA")));
 
             for (let i = 0; i < run.results.length; ++i) {
               run.results[i].ruleIndex = undefined;
