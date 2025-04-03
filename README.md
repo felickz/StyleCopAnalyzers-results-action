@@ -22,7 +22,12 @@ jobs:
   SCS:
     runs-on: ubuntu-latest
     steps:     
-      - uses: actions/checkout@v2
+      - uses: actions/checkout@v4
+
+      # Required for security-code-scan/security-code-scan-results-action@v1
+      - uses: actions/setup-dotnet@v4
+        with:
+          dotnet-version: '3.1.x'  
       
       - name: Set up projects
         uses: security-code-scan/security-code-scan-add-action@v1.2
@@ -36,7 +41,7 @@ jobs:
         uses: security-code-scan/security-code-scan-results-action@v1
         
       - name: Upload sarif	
-        uses: github/codeql-action/upload-sarif@v1
+        uses: github/codeql-action/upload-sarif@v3
 ```
 
 For .NET 4.x example see [FullDotNetWebApp demo repository](https://github.com/security-code-scan/FullDotNetWebApp).
